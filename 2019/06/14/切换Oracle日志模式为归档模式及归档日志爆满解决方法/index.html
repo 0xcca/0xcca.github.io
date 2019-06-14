@@ -96,16 +96,18 @@
 
 
 
-  <meta name="description" content="没有灵魂的菠萝头">
-<meta property="og:type" content="website">
-<meta property="og:title" content="没有标题">
-<meta property="og:url" content="https://0xcca.github.io/tags/Oracle/index.html">
+  <meta name="description" content="前言?Oracle使用归档方式运行时,才可以进行灾难性恢复。1.非归档模式只能做冷备份，并且恢复时只能做完全备份。最近一次完全备份到系统出错期间的数据不能恢复。2.归档模式可以做热备份，并且可以做增量备份，可以做部分恢复。注：从网络上摘抄回来的一段话，其实本人觉得归档模式还是挺不错的，就是比较占用硬盘空间，需要定时去清理一下。而且数据在做增，删，改都会做记录，比较占用空间。如果数据不是经常性变化的">
+<meta name="keywords" content="Oracle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="切换Oracle日志模式为归档模式及归档日志爆满解决方法">
+<meta property="og:url" content="https://0xcca.github.io/2019/06/14/切换Oracle日志模式为归档模式及归档日志爆满解决方法/index.html">
 <meta property="og:site_name" content="没有标题">
-<meta property="og:description" content="没有灵魂的菠萝头">
+<meta property="og:description" content="前言?Oracle使用归档方式运行时,才可以进行灾难性恢复。1.非归档模式只能做冷备份，并且恢复时只能做完全备份。最近一次完全备份到系统出错期间的数据不能恢复。2.归档模式可以做热备份，并且可以做增量备份，可以做部分恢复。注：从网络上摘抄回来的一段话，其实本人觉得归档模式还是挺不错的，就是比较占用硬盘空间，需要定时去清理一下。而且数据在做增，删，改都会做记录，比较占用空间。如果数据不是经常性变化的">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-14T08:18:12.346Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="没有标题">
-<meta name="twitter:description" content="没有灵魂的菠萝头">
+<meta name="twitter:title" content="切换Oracle日志模式为归档模式及归档日志爆满解决方法">
+<meta name="twitter:description" content="前言?Oracle使用归档方式运行时,才可以进行灾难性恢复。1.非归档模式只能做冷备份，并且恢复时只能做完全备份。最近一次完全备份到系统出错期间的数据不能恢复。2.归档模式可以做热备份，并且可以做增量备份，可以做部分恢复。注：从网络上摘抄回来的一段话，其实本人觉得归档模式还是挺不错的，就是比较占用硬盘空间，需要定时去清理一下。而且数据在做增，删，改都会做记录，比较占用空间。如果数据不是经常性变化的">
 
 
 
@@ -113,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="https://0xcca.github.io/tags/Oracle/">
+  <link rel="canonical" href="https://0xcca.github.io/2019/06/14/切换Oracle日志模式为归档模式及归档日志爆满解决方法/">
 
 
 
@@ -123,7 +125,7 @@
   };
 </script>
 
-  <title>标签: Oracle | 没有标题</title>
+  <title>切换Oracle日志模式为归档模式及归档日志爆满解决方法 | 没有标题</title>
   
 
 
@@ -171,7 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -264,7 +266,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -330,135 +332,204 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Oracle<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0xcca.github.io/2019/06/14/切换Oracle日志模式为归档模式及归档日志爆满解决方法/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cca">
+      <meta itemprop="description" content="没有灵魂的菠萝头">
+      <meta itemprop="image" content="/images/yiquan1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="没有标题">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/06/14/切换Oracle日志模式为归档模式及归档日志爆满解决方法/" itemprop="url">
-            
-              <span itemprop="name">切换Oracle日志模式为归档模式及归档日志爆满解决方法</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">切换Oracle日志模式为归档模式及归档日志爆满解决方法
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-14T16:17:55+08:00" content="2019-06-14">
-          06-14
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-14 16:17:55 / 修改时间：16:18:12" itemprop="dateCreated datePublished" datetime="2019-06-14T16:17:55+08:00">2019-06-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Oracle/" itemprop="url" rel="index"><span itemprop="name">Oracle</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/06/14/Oracle-日常使用指令/" itemprop="url">
-            
-              <span itemprop="name">Oracle 日常使用指令</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-14T15:58:52+08:00" content="2019-06-14">
-          06-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/05/31/Oracle-11-2-0-4-for-Centos7-5/" itemprop="url">
-            
-              <span itemprop="name">Oracle 11.2.0.4 for Centos7.5</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-31T01:58:52+08:00" content="2019-05-31">
-          05-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言?"></a>前言?</h3><p>Oracle使用归档方式运行时,才可以进行灾难性恢复。<br>1.非归档模式只能做冷备份，并且恢复时只能做完全备份。最近一次完全备份到系统出错期间的数据不能恢复。<br>2.归档模式可以做热备份，并且可以做增量备份，可以做部分恢复。<br><code>注：从网络上摘抄回来的一段话，其实本人觉得归档模式还是挺不错的，就是比较占用硬盘空间，需要定时去清理一下。而且数据在做增，删，改都会做记录，比较占用空间。如果数据不是经常性变化的话还是用非归档模式吧。还是那个道理，定时做备份。</code></p>
+<h3 id="切换数据库为归档模式"><a href="#切换数据库为归档模式" class="headerlink" title="切换数据库为归档模式"></a>切换数据库为归档模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sqlplus / as sysdba</span><br><span class="line">SQL&gt; shutdown immediate; //关闭数据库</span><br><span class="line">SQL&gt; startup mount; //启动实例并加载数据库,但不打开</span><br><span class="line">SQL&gt; alter database archivelog; //更改数据库为归档模式</span><br><span class="line">SQL&gt; alter database open; //打开数据库</span><br><span class="line">SQL&gt; alter system archive log start; //启动自动归档</span><br><span class="line">SQL&gt; quit; //退出</span><br></pre></td></tr></table></figure>
+<h3 id="归档日志爆满导致无法登陆"><a href="#归档日志爆满导致无法登陆" class="headerlink" title="归档日志爆满导致无法登陆"></a>归档日志爆满导致无法登陆</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sqlplus / as sysdba //登陆sql</span><br><span class="line">SQL&gt; show parameter recover; //查看归档日志路径</span><br><span class="line">//查找到路径后手动去目录里面删除对应的日志文件夹</span><br><span class="line">SQL&gt; quit; //退出</span><br><span class="line">$ rman target sys/pass //进入rman维护</span><br><span class="line">rman&gt; crosscheck archivelog all; //检查无用的archivelog all;</span><br><span class="line">rman&gt; delete archivelog until time &apos;sysdate-1&apos;; //删除截至到前一天的所有archivelog,删除所有的话就把-1去掉</span><br></pre></td></tr></table></figure>
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Oracle/" rel="tag"># Oracle</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/14/Oracle-日常使用指令/" rel="next" title="Oracle 日常使用指令">
+                <i class="fa fa-chevron-left"></i> Oracle 日常使用指令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -478,8 +549,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -579,6 +659,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换数据库为归档模式"><span class="nav-number">2.</span> <span class="nav-text">切换数据库为归档模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归档日志爆满导致无法登陆"><span class="nav-number">3.</span> <span class="nav-text">归档日志爆满导致无法登陆</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -722,6 +819,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
 
   
 
@@ -737,6 +838,8 @@
 
   
 
+
+  
 
 
   
