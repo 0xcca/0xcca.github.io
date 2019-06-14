@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":25,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="话自己在做实施的时候经常要装mysql,就很烦想一键搞定…然后就自己摸索着写了一套shell代码来实现自动化…比较low~~~很多判断都没有去做在安装之前不要建立带有mysql名称的文件夹,不然在脚本启动的时候就会自己干掉适用系统：Centos6，Centos7需要上传的mysql安装包：mysql5.7.21 el6mysql5.7.21 el7 shell代码12345678910111213">
+<meta name="keywords" content="shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux一键安装mysql5.7.21">
+<meta property="og:url" content="https://0xcca.github.io/2019/06/14/Linux一键安装mysql5-7-21/index.html">
+<meta property="og:site_name" content="没有标题">
+<meta property="og:description" content="话自己在做实施的时候经常要装mysql,就很烦想一键搞定…然后就自己摸索着写了一套shell代码来实现自动化…比较low~~~很多判断都没有去做在安装之前不要建立带有mysql名称的文件夹,不然在脚本启动的时候就会自己干掉适用系统：Centos6，Centos7需要上传的mysql安装包：mysql5.7.21 el6mysql5.7.21 el7 shell代码12345678910111213">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-14T08:34:47.056Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux一键安装mysql5.7.21">
+<meta name="twitter:description" content="话自己在做实施的时候经常要装mysql,就很烦想一键搞定…然后就自己摸索着写了一套shell代码来实现自动化…比较low~~~很多判断都没有去做在安装之前不要建立带有mysql名称的文件夹,不然在脚本启动的时候就会自己干掉适用系统：Centos6，Centos7需要上传的mysql安装包：mysql5.7.21 el6mysql5.7.21 el7 shell代码12345678910111213">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://0xcca.github.io/2019/06/14/Linux一键安装mysql5-7-21/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Linux一键安装mysql5.7.21 | 没有标题</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">没有标题</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">no description</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>主页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/0xcca" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0xcca.github.io/2019/06/14/Linux一键安装mysql5-7-21/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="cca">
+      <meta itemprop="description" content="没有灵魂的菠萝头">
+      <meta itemprop="image" content="/images/yiquan1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="没有标题">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux一键安装mysql5.7.21
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-14 16:34:19 / 修改时间：16:34:47" itemprop="dateCreated datePublished" datetime="2019-06-14T16:34:19+08:00">2019-06-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/shell/" itemprop="url" rel="index"><span itemprop="name">shell</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="话"><a href="#话" class="headerlink" title="话"></a>话</h3><p>自己在做实施的时候经常要装mysql,就很烦想一键搞定…然后就自己摸索着写了一套shell代码来实现自动化…比较low~~~很多判断都没有去做<br>在安装之前不要建立带有mysql名称的文件夹,不然在脚本启动的时候就会自己干掉<br>适用系统：<br>Centos6，Centos7<br>需要上传的mysql安装包：<br>mysql5.7.21 el6<br>mysql5.7.21 el7</p>
+<h3 id="shell代码"><a href="#shell代码" class="headerlink" title="shell代码"></a>shell代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">echo &quot;正在查找相关mysql程序&quot;</span><br><span class="line">mysql1=$(rpm -qa |grep mysql)</span><br><span class="line">if [ ! -n &quot;$mysql1&quot; ]; then</span><br><span class="line">  echo &quot;服务器没有安装相关mysql程序&quot;</span><br><span class="line">else</span><br><span class="line">  echo &quot;服务器安装了相关mysql程序，正在卸载。。。&quot;</span><br><span class="line">  echo $mysql1</span><br><span class="line">  rpm -e --nodeps $mysql1</span><br><span class="line">  echo &quot;mysql相关程序卸载完成&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;------------------------------------------------&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;正在查看相关mariadb程序&quot;</span><br><span class="line">mariadb1=$(rpm -qa |grep mariadb)</span><br><span class="line">if [ ! -n &quot;$mariadb1&quot; ]; then</span><br><span class="line">  echo &quot;服务器没有安装相关mariadb程序&quot;</span><br><span class="line">else</span><br><span class="line">  echo &quot;服务器安装了相关mariadb程序，正在卸载。。。&quot;</span><br><span class="line">  echo $mariadb1</span><br><span class="line">  rpm -e --nodeps $mariadb1</span><br><span class="line">  echo &quot;mariadb相关程序卸载完成&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;------------------------------------------------&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;正在检验是否存在mysql相关用户和组&quot;</span><br><span class="line">mysqlG=$(nl /etc/group | grep mysql)</span><br><span class="line">mysqlS=$(nl /etc/shadow | grep mysql)</span><br><span class="line">mysqlU=$(nl /etc/passwd | grep mysql)</span><br><span class="line">if [ ! -n &quot;$mysqlU&quot; ]; then</span><br><span class="line">  echo &quot;不存在mysql用户&quot;</span><br><span class="line">else</span><br><span class="line">  echo &quot;存在mysql用户，正在删除。。。&quot;</span><br><span class="line">  echo $mysqlU</span><br><span class="line">  userdel mysql #这里写死了，待优化</span><br><span class="line">  echo &quot;mysql用户删除成功&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;------------------------------------------------&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;正在查找mysql相关目录&quot;</span><br><span class="line">mulu=$(find / -name mysql)</span><br><span class="line">if [ ! -n &quot;$mulu&quot; ]; then</span><br><span class="line">  echo &quot;无相关mysql目录&quot;</span><br><span class="line">else</span><br><span class="line">  echo &quot;服务器存在相关mysql目录，正在删除。。。&quot;</span><br><span class="line">  echo $mulu</span><br><span class="line">  rm -rf $mulu</span><br><span class="line">  echo &quot;删除完成！&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;------------------------------------------------&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;正在查找mysqld.log&quot;</span><br><span class="line">MYSQL_LOG=$(find / -name mysqld.log)</span><br><span class="line">if [ ! -n &quot;$MYSQL_LOG&quot; ]; then</span><br><span class="line">  echo &quot;没找到mysqld.log&quot;</span><br><span class="line">else</span><br><span class="line">  echo &quot;找到mysqld.log，正在删除。。。&quot;</span><br><span class="line">  echo $MYSQL_LOG</span><br><span class="line">  rm -rf $MYSQL_LOG</span><br><span class="line">  echo &quot;删除完成!&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;------------------------------------------------&quot;</span><br><span class="line"></span><br><span class="line">read -p &quot;请输入centos的安装范围(只能输入el6或el7):&quot; fanwei</span><br><span class="line">if [ &quot;$fanwei&quot; = &quot;el6&quot; ]; then</span><br><span class="line">  rpm -ivh mysql-community-common-5.7.21-1.el6.x86_64.rpm mysql-community-libs-5.7.21-1.el6.x86_64.rpm mysql-community-client-5.7.21-1.el6.x86_64.rpm mysql-community-server-5.7.21-1.el6.x86_64.rpm</span><br><span class="line">  echo &quot;mysql安装成功&quot;</span><br><span class="line">elif [ &quot;$fanwei&quot; = &quot;el7&quot; ]; then</span><br><span class="line">  rpm -ivh mysql-community-common-5.7.21-1.el7.x86_64.rpm mysql-community-libs-5.7.21-1.el7.x86_64.rpm mysql-community-client-5.7.21-1.el7.x86_64.rpm mysql-community-server-5.7.21-1.el7.x86_64.rpm</span><br><span class="line">  echo &quot;mysql安装成功&quot;</span><br><span class="line">  mysql --version</span><br><span class="line">  </span><br><span class="line">else</span><br><span class="line">  echo &quot;输入错误，再见！&quot;</span><br><span class="line">  exit 0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;------------------------------------------------&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;正在改写/etc/my.cnf&quot;</span><br><span class="line"></span><br><span class="line">aa=&quot;[mysqld]&quot;</span><br><span class="line">a=&quot;symbolic-links=0&quot;</span><br><span class="line">b=&quot;log-error=/var/log/mysqld.log&quot;</span><br><span class="line">c=&quot;pid-file=/var/run/mysqld/mysqld.pid&quot;</span><br><span class="line">d=&quot;character_set_server=utf8&quot;</span><br><span class="line">e=&quot;skip-name-resolve&quot;</span><br><span class="line">f=&quot;lower_case_table_names=1&quot;</span><br><span class="line">g=&quot;sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION&quot;</span><br><span class="line">h=&quot;[client]&quot;</span><br><span class="line">i=&quot;default-character-set=utf8&quot;</span><br><span class="line">j=&quot;[mysql]&quot;</span><br><span class="line"></span><br><span class="line">moren1=/var/lib/mysql</span><br><span class="line">moren2=/var/lib/mysql/mysql.sock</span><br><span class="line"></span><br><span class="line">read -p &quot;是否需要更改数据存储目录？(y or n)：&quot; yorn</span><br><span class="line">if [ &quot;$yorn&quot; = &quot;y&quot; ]; then</span><br><span class="line">  echo -e &quot;\033[31m 提示：socket路径在datadir目录下，datadir默认路径/var/lib/mysql，socket默认路径/var/lib/mysql/mysql.sock \033[0m&quot;</span><br><span class="line">  read -p &quot;输入datadir路径：&quot; datadir</span><br><span class="line">  read -p &quot;输入socket路径：&quot; socketdir</span><br><span class="line">  echo $aa &gt; /etc/my.cnf</span><br><span class="line">  echo datadir=$datadir &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo socket=$socketdir &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $a &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $b &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $c &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $d &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $e &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $f &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $g &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $h &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $i &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $j &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo socket=$socketdir &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo &quot;写入成功。&quot;</span><br><span class="line">elif [ &quot;$yorn&quot; = &quot;n&quot; ]; then</span><br><span class="line">  echo &quot;将使用默认路径/var/lib/mysql，/var/lib/mysql/mysql.sock&quot;</span><br><span class="line">  echo $aa &gt; /etc/my.cnf</span><br><span class="line">  echo datadir=$moren1 &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo socket=$moren2 &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $a &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $b &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $c &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $d &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $e &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $f &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $g &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $h &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $i &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo $j &gt;&gt; /etc/my.cnf</span><br><span class="line">  echo socket=$moren2 &gt;&gt; /etc/my.cnf</span><br><span class="line">else</span><br><span class="line">  echo &quot;输入错误，拜您个拜!&quot;</span><br><span class="line">  exit 0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;------------------------------------------------&quot;</span><br><span class="line">echo &quot;启动mysql&quot;</span><br><span class="line">service mysqld restart</span><br><span class="line">echo &quot;开始配置mysql&quot;</span><br><span class="line"></span><br><span class="line">HOSTNAME=&quot;localhost&quot;</span><br><span class="line">PORT=&quot;3306&quot;</span><br><span class="line">USER_NAME=&quot;root&quot;</span><br><span class="line">PASSWORD_LOG=$(grep &apos;temporary password&apos; /var/log/mysqld.log)</span><br><span class="line">PASSWORD_LOG_NEW=$&#123;PASSWORD_LOG##*: &#125;</span><br><span class="line">PASSWORD_NEW=&quot;ABCD@123456&quot;</span><br><span class="line">echo $PASSWORD_LOG_NEW</span><br><span class="line"></span><br><span class="line">mysql --connect-expired-password -u&quot;$USER_NAME&quot; -p&quot;$PASSWORD_LOG_NEW&quot; &lt;&lt; EOF &gt;/dev/null 2&gt;&amp;1</span><br><span class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED BY &apos;$PASSWORD_NEW&apos;;</span><br><span class="line">flush privileges;</span><br><span class="line">use mysql;</span><br><span class="line">update user set host=&apos;%&apos; where user =&apos;root&apos; and host=&apos;localhost&apos;;</span><br><span class="line">select host,user from user;</span><br><span class="line">grant all privileges on *.* to root@&apos;%&apos; identified by &apos;$PASSWORD_NEW&apos; with grant option;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">echo -e &quot;\033[31m密码初始化完成，远程功能初始化完成。正在重启mysql\033[0m&quot;</span><br><span class="line">service mysqld restart</span><br><span class="line"></span><br><span class="line">echo &quot;------------------------------------------------&quot;</span><br><span class="line"></span><br><span class="line">read -p &quot;请输入centos版本便于设置mysql开机自启动(centos6/centos7)&quot; VERSION1</span><br><span class="line">if [ &quot;$VERSION1&quot; = &quot;centos6&quot; ]; then</span><br><span class="line">chkconfig mysqld on</span><br><span class="line">echo &quot;开机自启动设置成功&quot;</span><br><span class="line">elif [ &quot;$VERSION1&quot; = &quot;centos7&quot; ]; then</span><br><span class="line">systemctl enable mysqld.service</span><br><span class="line">echo &quot;开机自启动设置成功&quot;</span><br><span class="line">else</span><br><span class="line">echo &quot;输入错误，自己手动设置吧!&quot;</span><br><span class="line">exit 0</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/shell/" rel="tag"># shell</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/14/切换Oracle日志模式为归档模式及归档日志爆满解决方法/" rel="next" title="切换Oracle日志模式为归档模式及归档日志爆满解决方法">
+                <i class="fa fa-chevron-left"></i> 切换Oracle日志模式为归档模式及归档日志爆满解决方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/yiquan1.jpg" alt="cca">
+            
+              <p class="site-author-name" itemprop="name">cca</p>
+              <div class="site-description motion-element" itemprop="description">没有灵魂的菠萝头</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://weasleyisourking.github.io" title="https://weasleyisourking.github.io" rel="noopener" target="_blank">弥漫</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://xbs9666.github.io" title="https://xbs9666.github.io" rel="noopener" target="_blank">老哥</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#话"><span class="nav-number">1.</span> <span class="nav-text">话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell代码"><span class="nav-number">2.</span> <span class="nav-text">shell代码</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cca</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.1</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
