@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="Linux指令登陆Oracle1$ sqlplus / as sysdba 查找监听器配置文件1$ ll $ORACLE_HOME/network/admin/*.ora 监听器指令123$ lsnrctl start //启动监听器$ lsnrctl stop  //停止监听器$ lsnrctl status //查看监听器状态 Oracle数据库启动与关闭123SQL&amp;gt; shutdown">
+  <meta name="description" content="Linux指令登陆Oracle1$ sqlplus / as sysdba 查找监听器配置文件1$ ll $ORACLE_HOME/network/admin/*.ora 监听器指令123$ lsnrctl start //启动监听器$ lsnrctl stop  //停止监听器$ lsnrctl status //查看监听器状态 Oracle数据库启动与关闭1234SQL&amp;gt; shutdow">
 <meta name="keywords" content="Oracle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Oracle 日常使用指令">
 <meta property="og:url" content="https://0xcca.github.io/2019/06/14/Oracle-日常使用指令/index.html">
 <meta property="og:site_name" content="没有标题">
-<meta property="og:description" content="Linux指令登陆Oracle1$ sqlplus / as sysdba 查找监听器配置文件1$ ll $ORACLE_HOME/network/admin/*.ora 监听器指令123$ lsnrctl start //启动监听器$ lsnrctl stop  //停止监听器$ lsnrctl status //查看监听器状态 Oracle数据库启动与关闭123SQL&amp;gt; shutdown">
+<meta property="og:description" content="Linux指令登陆Oracle1$ sqlplus / as sysdba 查找监听器配置文件1$ ll $ORACLE_HOME/network/admin/*.ora 监听器指令123$ lsnrctl start //启动监听器$ lsnrctl stop  //停止监听器$ lsnrctl status //查看监听器状态 Oracle数据库启动与关闭1234SQL&amp;gt; shutdow">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-14T08:12:41.348Z">
+<meta property="og:updated_time" content="2019-06-14T08:21:24.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle 日常使用指令">
-<meta name="twitter:description" content="Linux指令登陆Oracle1$ sqlplus / as sysdba 查找监听器配置文件1$ ll $ORACLE_HOME/network/admin/*.ora 监听器指令123$ lsnrctl start //启动监听器$ lsnrctl stop  //停止监听器$ lsnrctl status //查看监听器状态 Oracle数据库启动与关闭123SQL&amp;gt; shutdown">
+<meta name="twitter:description" content="Linux指令登陆Oracle1$ sqlplus / as sysdba 查找监听器配置文件1$ ll $ORACLE_HOME/network/admin/*.ora 监听器指令123$ lsnrctl start //启动监听器$ lsnrctl stop  //停止监听器$ lsnrctl status //查看监听器状态 Oracle数据库启动与关闭1234SQL&amp;gt; shutdow">
 
 
 
@@ -395,7 +395,7 @@
                 
               
 
-              <time title="创建时间：2019-06-14 15:58:52 / 修改时间：16:12:41" itemprop="dateCreated datePublished" datetime="2019-06-14T15:58:52+08:00">2019-06-14</time>
+              <time title="创建时间：2019-06-14 15:58:52 / 修改时间：16:21:24" itemprop="dateCreated datePublished" datetime="2019-06-14T15:58:52+08:00">2019-06-14</time>
             
 
             
@@ -462,8 +462,8 @@
         <h3 id="Linux指令登陆Oracle"><a href="#Linux指令登陆Oracle" class="headerlink" title="Linux指令登陆Oracle"></a>Linux指令登陆Oracle</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlplus / as sysdba</span><br></pre></td></tr></table></figure>
 <h3 id="查找监听器配置文件"><a href="#查找监听器配置文件" class="headerlink" title="查找监听器配置文件"></a>查找监听器配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ll $ORACLE_HOME/network/admin/*.ora</span><br></pre></td></tr></table></figure>
 <h3 id="监听器指令"><a href="#监听器指令" class="headerlink" title="监听器指令"></a>监听器指令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ lsnrctl start //启动监听器</span><br><span class="line">$ lsnrctl stop  //停止监听器</span><br><span class="line">$ lsnrctl status //查看监听器状态</span><br></pre></td></tr></table></figure>
-<h3 id="Oracle数据库启动与关闭"><a href="#Oracle数据库启动与关闭" class="headerlink" title="Oracle数据库启动与关闭"></a>Oracle数据库启动与关闭</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; shutdown immediate; //关闭数据库</span><br><span class="line">SQL&gt; startup mount; //启动实例并加载数据库</span><br><span class="line">SQL&gt; alter database open; //打开数据库</span><br></pre></td></tr></table></figure>
-<h3 id="更改归档日志容量的指令"><a href="#更改归档日志容量的指令" class="headerlink" title="更改归档日志容量的指令"></a>更改归档日志容量的指令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sqlplus / as sysdba</span><br><span class="line">SQL&gt; show parameter recover; //查看归档日志信息</span><br><span class="line">SQL&gt; select * from V$FLASH_RECOVERY_AREA_USAGE; //查看flash recovery area的使用情况</span><br><span class="line">SQL&gt; show parameter db_recovery_file_dest_size; //查看归档日志的容量大小</span><br><span class="line">SQL&gt; alter system set db_recovery_file_dest_size=1024G; //更改归档日志容量大小</span><br></pre></td></tr></table></figure>
+<h3 id="Oracle数据库启动与关闭"><a href="#Oracle数据库启动与关闭" class="headerlink" title="Oracle数据库启动与关闭"></a>Oracle数据库启动与关闭</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; shutdown immediate; //关闭数据库</span><br><span class="line">SQL&gt; startup mount; //启动实例并加载数据库</span><br><span class="line">SQL&gt; alter database open; //打开数据库</span><br><span class="line">SQL&gt; quit;</span><br></pre></td></tr></table></figure>
+<h3 id="更改归档日志容量的指令"><a href="#更改归档日志容量的指令" class="headerlink" title="更改归档日志容量的指令"></a>更改归档日志容量的指令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sqlplus / as sysdba</span><br><span class="line">SQL&gt; show parameter recover; //查看归档日志信息</span><br><span class="line">SQL&gt; select * from V$FLASH_RECOVERY_AREA_USAGE; //查看flash recovery area的使用情况</span><br><span class="line">SQL&gt; show parameter db_recovery_file_dest_size; //查看归档日志的容量大小</span><br><span class="line">SQL&gt; alter system set db_recovery_file_dest_size=1024G; //更改归档日志容量大小</span><br><span class="line">SQL&gt; quit;</span><br></pre></td></tr></table></figure>
       
     </div>
 
