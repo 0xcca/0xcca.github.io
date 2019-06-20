@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="Linux指令登陆Oracle1$ sqlplus / as sysdba 查找监听器配置文件1$ ll $ORACLE_HOME/network/admin/*.ora 监听器指令123$ lsnrctl start //启动监听器$ lsnrctl stop  //停止监听器$ lsnrctl status //查看监听器状态 Oracle数据库启动与关闭1234SQL&amp;gt; shutdow">
+  <meta name="description" content="Linux本地登陆Oracle1$ sqlplus / as sysdba Linux远程连接Oracle1$ sqlplus &amp;#123;username&amp;#125;/&amp;#123;passwd&amp;#125;@&amp;#123;ip&amp;#125;:&amp;#123;port&amp;#125;/&amp;#123;servser_name&amp;#125; 查找监听器配置文件1$ ll $ORACLE_HOME/network/adm">
 <meta name="keywords" content="Oracle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Oracle 日常使用指令">
 <meta property="og:url" content="https://0xcca.github.io/2019/06/14/Oracle-日常使用指令/index.html">
 <meta property="og:site_name" content="没有标题">
-<meta property="og:description" content="Linux指令登陆Oracle1$ sqlplus / as sysdba 查找监听器配置文件1$ ll $ORACLE_HOME/network/admin/*.ora 监听器指令123$ lsnrctl start //启动监听器$ lsnrctl stop  //停止监听器$ lsnrctl status //查看监听器状态 Oracle数据库启动与关闭1234SQL&amp;gt; shutdow">
+<meta property="og:description" content="Linux本地登陆Oracle1$ sqlplus / as sysdba Linux远程连接Oracle1$ sqlplus &amp;#123;username&amp;#125;/&amp;#123;passwd&amp;#125;@&amp;#123;ip&amp;#125;:&amp;#123;port&amp;#125;/&amp;#123;servser_name&amp;#125; 查找监听器配置文件1$ ll $ORACLE_HOME/network/adm">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-14T08:21:24.328Z">
+<meta property="og:updated_time" content="2019-06-20T08:50:00.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle 日常使用指令">
-<meta name="twitter:description" content="Linux指令登陆Oracle1$ sqlplus / as sysdba 查找监听器配置文件1$ ll $ORACLE_HOME/network/admin/*.ora 监听器指令123$ lsnrctl start //启动监听器$ lsnrctl stop  //停止监听器$ lsnrctl status //查看监听器状态 Oracle数据库启动与关闭1234SQL&amp;gt; shutdow">
+<meta name="twitter:description" content="Linux本地登陆Oracle1$ sqlplus / as sysdba Linux远程连接Oracle1$ sqlplus &amp;#123;username&amp;#125;/&amp;#123;passwd&amp;#125;@&amp;#123;ip&amp;#125;:&amp;#123;port&amp;#125;/&amp;#123;servser_name&amp;#125; 查找监听器配置文件1$ ll $ORACLE_HOME/network/adm">
 
 
 
@@ -395,12 +395,24 @@
                 
               
 
-              <time title="创建时间：2019-06-14 15:58:52 / 修改时间：16:21:24" itemprop="dateCreated datePublished" datetime="2019-06-14T15:58:52+08:00">2019-06-14</time>
+              <time title="创建时间：2019-06-14 15:58:52" itemprop="dateCreated datePublished" datetime="2019-06-14T15:58:52+08:00">2019-06-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-06-20 16:50:00" itemprop="dateModified" datetime="2019-06-20T16:50:00+08:00">2019-06-20</time>
               
             
           </span>
@@ -459,7 +471,8 @@
       
 
       
-        <h3 id="Linux指令登陆Oracle"><a href="#Linux指令登陆Oracle" class="headerlink" title="Linux指令登陆Oracle"></a>Linux指令登陆Oracle</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlplus / as sysdba</span><br></pre></td></tr></table></figure>
+        <h3 id="Linux本地登陆Oracle"><a href="#Linux本地登陆Oracle" class="headerlink" title="Linux本地登陆Oracle"></a>Linux本地登陆Oracle</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlplus / as sysdba</span><br></pre></td></tr></table></figure>
+<h3 id="Linux远程连接Oracle"><a href="#Linux远程连接Oracle" class="headerlink" title="Linux远程连接Oracle"></a>Linux远程连接Oracle</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sqlplus &#123;username&#125;/&#123;passwd&#125;@&#123;ip&#125;:&#123;port&#125;/&#123;servser_name&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="查找监听器配置文件"><a href="#查找监听器配置文件" class="headerlink" title="查找监听器配置文件"></a>查找监听器配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ll $ORACLE_HOME/network/admin/*.ora</span><br></pre></td></tr></table></figure>
 <h3 id="监听器指令"><a href="#监听器指令" class="headerlink" title="监听器指令"></a>监听器指令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ lsnrctl start //启动监听器</span><br><span class="line">$ lsnrctl stop  //停止监听器</span><br><span class="line">$ lsnrctl status //查看监听器状态</span><br></pre></td></tr></table></figure>
 <h3 id="Oracle数据库启动与关闭"><a href="#Oracle数据库启动与关闭" class="headerlink" title="Oracle数据库启动与关闭"></a>Oracle数据库启动与关闭</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt; shutdown immediate; //关闭数据库</span><br><span class="line">SQL&gt; startup mount; //启动实例并加载数据库</span><br><span class="line">SQL&gt; alter database open; //打开数据库</span><br><span class="line">SQL&gt; quit;</span><br></pre></td></tr></table></figure>
@@ -680,7 +693,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux指令登陆Oracle"><span class="nav-number">1.</span> <span class="nav-text">Linux指令登陆Oracle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找监听器配置文件"><span class="nav-number">2.</span> <span class="nav-text">查找监听器配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监听器指令"><span class="nav-number">3.</span> <span class="nav-text">监听器指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Oracle数据库启动与关闭"><span class="nav-number">4.</span> <span class="nav-text">Oracle数据库启动与关闭</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改归档日志容量的指令"><span class="nav-number">5.</span> <span class="nav-text">更改归档日志容量的指令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux本地登陆Oracle"><span class="nav-number">1.</span> <span class="nav-text">Linux本地登陆Oracle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux远程连接Oracle"><span class="nav-number">2.</span> <span class="nav-text">Linux远程连接Oracle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找监听器配置文件"><span class="nav-number">3.</span> <span class="nav-text">查找监听器配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监听器指令"><span class="nav-number">4.</span> <span class="nav-text">监听器指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Oracle数据库启动与关闭"><span class="nav-number">5.</span> <span class="nav-text">Oracle数据库启动与关闭</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改归档日志容量的指令"><span class="nav-number">6.</span> <span class="nav-text">更改归档日志容量的指令</span></a></li></ol></div>
             
 
           </div>
